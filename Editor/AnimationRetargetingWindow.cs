@@ -28,7 +28,8 @@ namespace com.enemyhideout.retargeting
       [SerializeField]
       List<UnityEngine.Object> items = new List<UnityEngine.Object>();
 
-
+      private SerializedObject windowSO;
+      private SerializedObject so;
       [SerializeField]
       public float number = 10.0f;
 
@@ -84,8 +85,8 @@ namespace com.enemyhideout.retargeting
         // targetingData = (AnimationRetargetingData)EditorGUILayout.ObjectField(targetingData, typeof(AnimationRetargetingData), false);
         if(targetingData != null)
         {
-          SerializedObject so = new SerializedObject(targetingData);
-          SerializedObject windowSO = new SerializedObject(this);
+          if(so == null) so = new SerializedObject(targetingData);
+          if(windowSO == null) windowSO = new SerializedObject(this);
           EditorGUILayout.HelpBox("Drag Animation Clips, Animators, or Folders into the Items list below to retarget all clips inside them.", MessageType.Info);
           SerializedProperty itemsProp = windowSO.FindProperty("items");
           EditorGUILayout.PropertyField(itemsProp, new GUIContent("Items"), true);
